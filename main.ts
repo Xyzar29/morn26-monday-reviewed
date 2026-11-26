@@ -1,4 +1,4 @@
-import { mkdirSync, readdirSync, rmSync, writeFileSync } from "node:fs";
+import { chmodSync, mkdirSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 const line =
@@ -16,4 +16,5 @@ for (const entry of readdirSync(outDir)) {
 }
 mkdirSync(outDir, { recursive: true });
 writeFileSync(join(outDir, "entry.txt"), line + "\n", { mode: 0o644 });
+chmodSync(join(outDir, "entry.txt"), 0o644); // mode must be 0644 regardless of umask
 console.log(`Wrote entry.txt (${line.length} characters)`);
